@@ -1,21 +1,47 @@
-//
 //  ContentView.swift
-//  WeSplit
-//
-//  Created by Olivier Van hamme on 31/03/2021.
-//
-
 import SwiftUI
 
+
+
 struct ContentView: View {
+    
+    let humans: [String] = [
+        
+        "Dorothy" , "Glinda" , "Ozma" , "Dahlia"
+    ]
+    
+    
+    @State private var selectedHumanIndex: Int = 0
+    
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        
+        
+        
+        
+        VStack {
+            Text(" Select a human :")
+            Picker(" Select a human :" , selection : $selectedHumanIndex) {
+                
+                ForEach(0..<humans.count) { (index: Int) in
+                    
+                    Text("\(humans[index])")
+                }
+                
+            }
+            
+            Text(" You have chosen \(humans[selectedHumanIndex]) .")
+        }
     }
 }
 
+
+
 struct ContentView_Previews: PreviewProvider {
+    
     static var previews: some View {
+        
         ContentView()
+            .previewDevice(PreviewDevice(rawValue : "iPhone 12 Pro"))
     }
 }
