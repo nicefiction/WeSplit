@@ -21,15 +21,31 @@ struct ContentView: View {
                               text : $tipAmount)
                         .keyboardType(.decimalPad)
                     
-                    Picker("How many will tip ?" ,
+                    Picker("Amount of people :" ,
                            selection : $numberOfPeople) {
                         
                         ForEach(2..<100) { (amountOfPeople: Int) in
                             
-                            Text("\(amountOfPeople) people")
+                            return Text("\(amountOfPeople)")
                         }
                     }
-                    
+                }
+                
+                
+                Section(header: Text("Select your tip percentage :")) {
+                    Picker("Select your tip percentage ." ,
+                           selection : $tipPercentage) {
+                        
+                        ForEach(0..<tipPercentages.count) { (tipIndex: Int) in
+                            
+                            return Text("\(tipPercentages[tipIndex])")
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                }
+                
+                
+                Section {
                     Text("Your tip amount : \(tipAmount) $")
                 }
             }
