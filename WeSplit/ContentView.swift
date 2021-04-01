@@ -6,7 +6,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var tipAmount: String = ""
-    @State private var numberOfPeople: Int = 2
+    @State private var numberOfPeople: Int = 0
     @State private var tipPercentage: Int = 2
     
     let tipPercentages: [Int] = [ 5 , 10 , 15 , 20 , 25 ]
@@ -14,14 +14,26 @@ struct ContentView: View {
     
     var body: some View {
         
-        Form {
-            Section {
-                TextField("Enter your tip amount ." ,
-                          text : $tipAmount)
-                    .keyboardType(.decimalPad)
-                
-                Text("Your tip amount : \(tipAmount) $")
+        NavigationView {
+            Form {
+                Section {
+                    TextField("Enter your tip amount ." ,
+                              text : $tipAmount)
+                        .keyboardType(.decimalPad)
+                    
+                    Picker("How many will tip ?" ,
+                           selection : $numberOfPeople) {
+                        
+                        ForEach(2..<100) { (amountOfPeople: Int) in
+                            
+                            Text("\(amountOfPeople) people")
+                        }
+                    }
+                    
+                    Text("Your tip amount : \(tipAmount) $")
+                }
             }
+            .navigationTitle("We Split")
         }
     }
 }
