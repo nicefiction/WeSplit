@@ -5,32 +5,23 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let humans: [String] = [
-        
-        "Dorothy" , "Glinda" , "Ozma" , "Dahlia"
-    ]
+    @State private var tipAmount: String = ""
+    @State private var numberOfPeople: Int = 2
+    @State private var tipPercentage: Int = 2
     
-    
-    @State private var selectedHumanIndex: Int = 0
+    let tipPercentages: [Int] = [ 5 , 10 , 15 , 20 , 25 ]
     
     
     var body: some View {
         
-        
-        
-        
-        VStack {
-            Text(" Select a human :")
-            Picker(" Select a human :" , selection : $selectedHumanIndex) {
+        Form {
+            Section {
+                TextField("Enter your tip amount ." ,
+                          text : $tipAmount)
+                    .keyboardType(.decimalPad)
                 
-                ForEach(0..<humans.count) { (index: Int) in
-                    
-                    Text("\(humans[index])")
-                }
-                
+                Text("Your tip amount : \(tipAmount) $")
             }
-            
-            Text(" You have chosen \(humans[selectedHumanIndex]) .")
         }
     }
 }
