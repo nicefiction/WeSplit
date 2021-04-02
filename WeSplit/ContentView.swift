@@ -7,6 +7,7 @@ struct ContentView: View {
     
     @State private var tipAmount: String = ""
     @State private var numberOfPeople: Int = 2
+    @State private var numberOfPeopleString: String = ""
     @State private var tipPercentage: Int = 2
     
     let tipPercentages: [Int] = [ 5 , 10 , 15 , 20 , 25 ]
@@ -28,6 +29,18 @@ struct ContentView: View {
     }
     
     
+    var totalAmount: Double {
+        
+        let tipSelection: Double = Double(tipPercentages[tipPercentage])
+        let orderAmount: Double = Double(tipAmount) ?? 0.00
+        
+        let tipValue: Double = orderAmount / 100 * tipSelection
+        let grandTotal: Double = orderAmount + tipValue
+        
+        return grandTotal
+    }
+    
+    
     var body: some View {
         
         NavigationView {
@@ -36,37 +49,39 @@ struct ContentView: View {
                     TextField("Enter your tip amount ." ,
                               text : $tipAmount)
                         .keyboardType(.decimalPad)
-                    
                     Picker("Number of people :", selection: $numberOfPeople) {
-                        
                         ForEach(2 ..< 100) {
-                            
                             Text("\($0) people")
                         }
                     }
-                    
                 }
                 
-                Section {
-                    Text("\(numberOfPeople + 2) people selected .")
-                    
+                
+                Section(header : Text("Number of people :")) {
+                    TextField("How many people are you ?" ,
+                              text : $numberOfPeopleString)
+                        .keyboardType(.decimalPad)
                 }
+                
                 
                 Section(header : Text("Select your tip percentage :")) {
                     Picker("Select your tip percentage ." ,
                            selection : $tipPercentage) {
-                        
                         ForEach(0..<tipPercentages.count) { (tipIndex: Int) in
-                            
-                            return Text("\(tipPercentages[tipIndex])")
+                            return Text("\(self.tipPercentages[tipIndex])")
                         }
                     }
                     .pickerStyle(SegmentedPickerStyle())
                 }
                 
                 
-                Section {
-                    Text("Your tip amount : \(totalAmountPerPerson , specifier : "%.2f") $")
+                Section(header: Text("Grand total :")) {
+                    Text("\(totalAmount , specifier : "%.2f") $")
+                }
+                
+                
+                Section(header: Text("Your tip :")) {
+                    Text("\(totalAmountPerPerson , specifier : "%.2f") $")
                 }
             }
             .navigationBarTitle("We Split")
