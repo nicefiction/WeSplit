@@ -1,17 +1,40 @@
-//  ContentView.swift
+// MARK:  ContentView.swift
+
+
+
+ // ////////////////
+//  MARK: LIBRARIES
+
 import SwiftUI
 
 
 
+
+
+ // //////////////////////////////////
+// MARK: struct ContentView: View { }
+
 struct ContentView: View {
+    
+     // ///////////////////////
+    // MARK: PROPERTY WRAPPERS
     
     @State private var tipAmount: String = ""
     @State private var numberOfPeople: Int = 2
     @State private var numberOfPeopleString: String = ""
     @State private var tipPercentage: Int = 2
     
-    let tipPercentages: [Int] = [ 5 , 10 , 15 , 20 , 25 ]
     
+    
+    // ////////////////
+   // MARK: PROPERTIES
+    
+    let tipPercentages: [Int] = [ 0 , 10 , 15 , 20 , 25 ]
+    
+    
+    
+    // /////////////////////////
+   // MARK: COMPUTED PROPERTIES
     
     var totalAmountPerPerson: Double {
         
@@ -80,8 +103,11 @@ struct ContentView: View {
                 }
                 
                 
-                Section(header: Text("Your tip :")) {
-                    Text("\(totalAmountPerPerson , specifier : "%.2f") $")
+                Section(header : Text("Your tip :")) {
+                    tipPercentage == 0
+                        ? Text("\(totalAmountPerPerson , specifier : "%.2f") $").foregroundColor(.red)
+                        : Text("\(totalAmountPerPerson , specifier : "%.2f") $")
+                    
                 }
             }
             .navigationBarTitle("We Split")
@@ -90,6 +116,11 @@ struct ContentView: View {
 }
 
 
+
+
+
+ // //////////////
+// MARK: PREVIEWS
 
 struct ContentView_Previews: PreviewProvider {
     
