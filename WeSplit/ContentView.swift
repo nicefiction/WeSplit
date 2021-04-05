@@ -104,10 +104,8 @@ struct ContentView: View {
                 
                 
                 Section(header : Text("Your tip :")) {
-                    tipPercentage == 0
-                        ? Text("\(totalAmountPerPerson , specifier : "%.2f") $").foregroundColor(.red)
-                        : Text("\(totalAmountPerPerson , specifier : "%.2f") $")
-                    
+                    Text("\(totalAmountPerPerson , specifier : "%.2f") $")
+                        .foregroundColor(tipPercentage == 0 ? .red : .black)
                 }
             }
             .navigationBarTitle("We Split")
